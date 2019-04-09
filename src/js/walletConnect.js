@@ -60,6 +60,7 @@ function getNetWork() {
                 case mainNetWork3:
                 case mainNetWork4:
                     netWork.innerText = "main";
+                    document.getElementById("netWork").style.color = '#149D34';
                     break
                 default:
                     netWork.innerText = "private";
@@ -91,6 +92,7 @@ function isListening() {
                 isListening.innerText = "Disconnected";
             } else {
                 isListening.innerText = "Connected";
+                document.getElementById("isListening").style.color = '#149D34';
             }
         });
     }, 2000);

@@ -267,20 +267,35 @@ function seeleClient() {
         return args;
     }
     this.killnode = function (shardNum) {
-
-        if (shardNum === '1'){     
-            this.execute('ps -ef | grep "node-1.json" | grep -v grep | awk {\'print $2\'} | xargs kill -9');
-            console.log("node-1 is killed");
-       } else if (shardNum === '2'){
-           this.execute('ps -ef | grep "node-2.json" | grep -v grep | awk {\'print $2\'} | xargs kill -9');
-           console.log("node-2 is killed");
-       } else if (shardNum === '3'){
-           this.execute('ps -ef | grep "node-3.json" | grep -v grep | awk {\'print $2\'} | xargs kill -9');
-           console.log("node-3 is killed");
-       } else if (shardNum === '4'){
-           this.execute('ps -ef | grep "node-4.json" | grep -v grep | awk {\'print $2\'} | xargs kill -9');
-           console.log("node-4 is killed");
-       } 
+        if (this.getOS() === "Windows"){
+            if (shardNum === '1'){    
+                this.execute("powershell.exe", "Stop-Process $(Get-WmiObject Win32_Process | Select ProcessId, CommandLine | Select-String 'node-1.json'| % {$_ -replace '.*Id=', ''} | % {$_ -replace ';.*', ''})");
+                console.log("node-1 is killed");
+           } else if (shardNum === '2'){
+                this.execute("powershell.exe", "Stop-Process $(Get-WmiObject Win32_Process | Select ProcessId, CommandLine | Select-String 'node-2.json'| % {$_ -replace '.*Id=', ''} | % {$_ -replace ';.*', ''})");
+                console.log("node-2 is killed");
+           } else if (shardNum === '3'){
+                this.execute("powershell.exe", "Stop-Process $(Get-WmiObject Win32_Process | Select ProcessId, CommandLine | Select-String 'node-3.json'| % {$_ -replace '.*Id=', ''} | % {$_ -replace ';.*', ''})");
+                console.log("node-3 is killed");
+           } else if (shardNum === '4'){
+                this.execute("powershell.exe", "Stop-Process $(Get-WmiObject Win32_Process | Select ProcessId, CommandLine | Select-String 'node-4.json'| % {$_ -replace '.*Id=', ''} | % {$_ -replace ';.*', ''})");
+                console.log("node-4 is killed");
+           }
+        } else {
+            if (shardNum === '1'){     
+                this.execute('ps -ef | grep "node-1.json" | grep -v grep | awk {\'print $2\'} | xargs kill -9');
+                console.log("node-1 is killed");
+           } else if (shardNum === '2'){
+               this.execute('ps -ef | grep "node-2.json" | grep -v grep | awk {\'print $2\'} | xargs kill -9');
+               console.log("node-2 is killed");
+           } else if (shardNum === '3'){
+               this.execute('ps -ef | grep "node-3.json" | grep -v grep | awk {\'print $2\'} | xargs kill -9');
+               console.log("node-3 is killed");
+           } else if (shardNum === '4'){
+               this.execute('ps -ef | grep "node-4.json" | grep -v grep | awk {\'print $2\'} | xargs kill -9');
+               console.log("node-4 is killed");
+           } 
+        }
     }
 
     this.execute = function(command) {

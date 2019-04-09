@@ -305,7 +305,8 @@ function stopMining(shard) {
     }).catch((err)=>{
         console.log(err);
     });
-    document.getElementById("isMining").innerText="Start Mining";   
+    document.getElementById("isMining").innerText="Start Mining"; 
+    document.getElementById("isMining").style.color = '#76a6d2';  
 }
 
 function changeMingingStatus(publickey) {
